@@ -18,6 +18,8 @@ subj_test<-read.table("test\\subject_test.txt")
 X<-rbind(x_train_data, x_test_data)
 #Merging the Y set;
 Y<-rbind(y_train_data, y_test_data)
+#Merging the subject set
+Subj<-rbind(subj_train, subj_test)
 
 #2 Extracts only the measurements on the mean and standard deviation for each measurement. 
 columns<-read.table("features.txt")
@@ -31,4 +33,7 @@ act_names<-read.table("activity_labels.txt")
 Y[, 1] <- act_names[Y[, 1], 2]
 names(Y) <- "Activity"
 
-
+#4 Appropriately labels the data set with descriptive variable names. 
+names(Subj)<-"Subject"
+#Merging all the data to one set
+Full_set<-cbind(X_2, Y, Subj)
