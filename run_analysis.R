@@ -18,3 +18,11 @@ subj_test<-read.table("test\\subject_test.txt")
 X<-rbind(x_train_data, x_test_data)
 #Merging the Y set;
 Y<-rbind(y_train_data, y_test_data)
+
+#2 Extracts only the measurements on the mean and standard deviation for each measurement. 
+columns<-read.table("features.txt")
+my_cols<-grep("mean|std", columns[,2])
+#Setting the names for selected columns:
+X_2<-X[, my_cols]
+colnames(X_2)<-columns[my_cols,2]
+
