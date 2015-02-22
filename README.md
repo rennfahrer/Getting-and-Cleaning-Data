@@ -4,6 +4,7 @@ Coursera project
 
 #The program
 The script works with data in the current directory. 
+
 1. Training sets are read from directory "train", files X_train.txt, Y_train.txt and subject_train.txt accordingly.
    Test sets are read from directory "test", from files: X_test.txt, Y_test.txt and subject_test.txt.
    Sets are appended(first train, test after). 
