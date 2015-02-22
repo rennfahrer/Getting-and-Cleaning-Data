@@ -26,3 +26,9 @@ my_cols<-grep("mean|std", columns[,2])
 X_2<-X[, my_cols]
 colnames(X_2)<-columns[my_cols,2]
 
+#3 Uses descriptive activity names to name the activities in the data set
+act_names<-read.table("activity_labels.txt")
+Y[, 1] <- act_names[Y[, 1], 2]
+names(Y) <- "Activity"
+
+
