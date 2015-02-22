@@ -4,8 +4,6 @@
 library(plyr)
 # Part 1
 # Merges the training and the test sets to create one data set.
-course_dir<-"C:\\Users\\Denis\\Desktop\\Google Drive\\Data analysis\\Getting and Cleaning Data - Coursera\\Data\\UCI HAR Dataset"
-setwd(course_dir)
 #Reading the training data
 x_train_data<-read.table("train\\X_train.txt")
 y_train_data<-read.table("train\\Y_train.txt")
@@ -23,7 +21,7 @@ Subj<-rbind(subj_train, subj_test)
 
 #2 Extracts only the measurements on the mean and standard deviation for each measurement. 
 columns<-read.table("features.txt")
-my_cols<-grep("mean|std", columns[,2])
+my_cols<-grep("(mean|std)\\(\\)", columns[,2])
 #Setting the names for selected columns:
 X_2<-X[, my_cols]
 colnames(X_2)<-columns[my_cols,2]
@@ -37,3 +35,15 @@ names(Y) <- "Activity"
 names(Subj)<-"Subject"
 #Merging all the data to one set
 Full_set<-cbind(X_2, Y, Subj)
+
+
+#5 From the data set in step 4, creates a second, 
+#independent tidy data set with the average of each 
+#variable for each activity and each subject.
+x_2_len<-length(names(X_2))
+#Calculating the averages on all the columns except the "group by" ones - from 1 to 66
+Set_2<-ddply(Full_set, .(Subject, Activity), function(lv_group) colMeans(lv_group[, 1:x_2_len]))
+
+
+#Writing the set to the file:
+write.table(Set_2,file="5_set_means.txt",  row.name=FALSE)
